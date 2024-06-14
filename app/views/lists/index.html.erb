@@ -4,6 +4,7 @@
   <% @lists.each do |list| %>
     <li>
       <%= link_to list.name, list_path(list) %>
+      <%= link_to 'Delete', list_path(list), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "btn btn-danger" %>
     </li>
   <% end %>
 </ul>
