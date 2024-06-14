@@ -1,10 +1,14 @@
-<h1>Show</h1>
-  <h2><%= @list.name %></h2>
-  <ul>
-    <% @list.bookmarks.each do |bookmark| %>
+<h1><%= @list.name %></h1>
+
+<h2>Add a new bookmark</h2>
+<%= render 'bookmarks/form', list: @list, bookmark: @bookmark %>
+<h2>Bookmarks</h2>
+<ul>
+  <% @bookmarks.each do |bookmark| %>
     <li>
-    <%= bookmark.movie.title %>
-    <%= link to "Remove", bookmark_path(bookmark), method :delete %>
+      <strong><%= bookmark.movie.title %></strong> - <%= bookmark.comment %>
+      <%= link_to 'Delete', bookmark_path(bookmark), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "btn btn-danger" %>
     </li>
-    <% end %>
-  </ul>
+  <% end %>
+</ul>
+<%= link_to 'Back to lists', lists_path, class: "btn btn-secondary" %>

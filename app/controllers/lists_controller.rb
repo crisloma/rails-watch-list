@@ -1,10 +1,13 @@
 class ListsController < ApplicationController
+
   def index
     @lists = List.all
   end
 
   def show
     @list = List.find(params[:id])
+    @bookmarks = @list.bookmarks
+    @bookmark = Bookmark.new
   end
 
   def new
@@ -13,15 +16,15 @@ class ListsController < ApplicationController
 
   def create
     @list = List.new(list_params)
-    if @list.save 
-      redirect_to list_path(@list)
+    if @list.save
+      redirect_to @list, notice: 'List was successfully created.'
     else
       render :new
+    end
   end
-end
 
-private
-def list_params 
-  params.require(:list).permit(:name, :description)
-end
+  private
+  def list_params
+    params.require(:list).permit(:name)
+  end
 end
